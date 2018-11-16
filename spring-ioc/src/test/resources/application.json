@@ -1,0 +1,17 @@
+[
+  {
+    "name":"hand",
+    "className":"com.sjz.ioc.test.model.Hand"
+  },
+  {
+    "name": "mouth",
+    "className": "com.sjz.ioc.test.model.Mouth",
+    "constructorArgs": [
+      {
+        "index": 1,
+        "name": "name",
+        "value": "kkkkkk"
+      }
+    ]
+  }
+]

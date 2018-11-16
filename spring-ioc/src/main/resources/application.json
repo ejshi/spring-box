@@ -1,0 +1,10 @@
+[
+  {
+    "name":"hand",
+    "className":"com.sjz.ioc.test.model.Hand"
+  },
+  {
+    "name":"mouth",
+    "className":"com.sjz.ioc.test.model.Mouth"
+  }
+]
