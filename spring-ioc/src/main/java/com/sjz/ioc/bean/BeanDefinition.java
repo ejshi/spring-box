@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class BeanDefinition {
 
+    private Class<?> aClass;
+
     private String name;
 
     private String className;

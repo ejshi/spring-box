@@ -22,7 +22,6 @@ public class BeanFactoryImpl implements  BeanFactory {
 
     private static final Set<String> beanNameSet = Collections.synchronizedSet(new HashSet<>());
 
-
     @Override
     public Object getBean(String beanName) {
         Preconditions.checkNotNull(beanName, "beanName不能为空");
@@ -66,7 +65,6 @@ public class BeanFactoryImpl implements  BeanFactory {
         }
         beanDefinitionMap.put(beanName, beanDefinition);
         beanNameSet.add(beanName);
-
     }
 
     /**
@@ -76,6 +74,10 @@ public class BeanFactoryImpl implements  BeanFactory {
      * @throws Exception
      */
     private Object createBean(BeanDefinition beanDefinition) throws Exception {
+        if(null != beanDefinition.getAClass()){
+            return BeanUtils.instanceByCglib(beanDefinition.getAClass(), null, null);
+        }
+
         String className = beanDefinition.getClassName();
         Class cls = ClassUtils.loadClass(className);
         Preconditions.checkNotNull(cls, String.format("类（%s）找不到",className));
