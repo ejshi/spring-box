@@ -15,7 +15,8 @@ public class IocTest {
         JsonApplicationContext applicationContext = new JsonApplicationContext("application.json");
         applicationContext.init();
 
-        
+        System.out.println("===========test git revert");
+
         Hand hand = (Hand) applicationContext.getBean("hand");
         hand.waveHand();
 
