@@ -15,7 +15,6 @@ public class IocTest {
         JsonApplicationContext applicationContext = new JsonApplicationContext("application.json");
         applicationContext.init();
 
-        System.out.println("=============================");
         
         Hand hand = (Hand) applicationContext.getBean("hand");
         hand.waveHand();
