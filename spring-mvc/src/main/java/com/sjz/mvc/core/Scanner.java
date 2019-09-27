@@ -1,6 +1,4 @@
-package com.sjz.ioc.utils;
-
-import com.sjz.ioc.annotations.Controller;
+package com.sjz.mvc.core;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -8,7 +6,9 @@ import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -113,7 +113,7 @@ public class Scanner {
             String fileName=file.getName();
             if(file.isFile()){
                 String classsName=fileName.substring(0,fileName.lastIndexOf("."));
-                if(!StringUtil.isBlank(packageName)){
+                if(packageName != null && packageName.length() > 0){
                     classsName=packageName+"."+classsName;
                 }
                 doAddClass(classes,classsName);
@@ -131,39 +131,6 @@ public class Scanner {
         //Class<?> cls= ClassLoader.loadClass(classsName);
         classes.add(classLoader.loadClass(classsName));
     }
-
-    //找也用了Controller注解的类
-    private Set<Class<?>> controllers;
-
-    public Set<Class<?>> getControllers() throws Exception{
-        if (controllers == null) {
-            controllers = new HashSet<>();
-            Set<Class<?>> clsList = getClasses("aop_zdh.zhujie");
-            if (clsList != null && clsList.size() > 0) {
-                for (Class<?> cls : clsList) {
-                    if (cls.getAnnotation(Controller.class) != null) {
-                        Map<Class<?>, Object> map = new HashMap<>();
-                        controllers.add(cls);
-                    }
-                }
-            }
-        }
-        return controllers;
-    }
-//    public void getMapping() throws Exception{
-//        for (Class<?> cls : getControllers()) {
-//            Method[] methods = cls.getMethods();
-//            for (Method method : methods) {
-//                RequestMapping annotation = method.getAnnotation(RequestMapping.class);
-//                if (annotation != null) {
-//                    String value = annotation.value();//找到RequestMapping的注入value值
-//                    if (value.equals("/about")) {//判断是不是/about，是的话，就调用about(args)方法
-//                        method.invoke(cls.newInstance(), "args"); //第二个参数是方法里的参数
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     /**
      * 以文件的形式来获取包下的所有Class
@@ -213,9 +180,5 @@ public class Scanner {
                 }
             }
         }
-    }
-
-    public static void main(String[] args)throws Exception {
-//        new Scanner().getMapping();
     }
 }
